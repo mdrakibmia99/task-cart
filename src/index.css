@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+p,span{font-size:12px}
+img{
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+.img-div{
+  @apply w-5 h-5 rounded-full 
+}
+
+/* for scrollbar  */
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(43, 78, 172); 
+  border-radius: 7px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(45deg,rgb(61, 92, 231),rgb(19, 78, 156));
+  border-radius: 7px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+ animation-duration: 2s ;
+  background-image: linear-gradient(45deg,rgb(19, 78, 156),rgb(61, 92, 231));
+}
