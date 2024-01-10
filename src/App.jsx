@@ -1,4 +1,9 @@
+import { useEffect, useState } from "react";
+import AttachmentModal from "./components/AttachmentModal";
 import Carts from "./components/Carts"
+import { useModal } from "./contexts/ModalContext";
+import axios from "axios";
+import Loading from "./components/loading/Loading";
 const DemoCartTitle = [
   { title: "Complete", className: { textColor: "bg-red-500" }, count: 8 },
   { title: "To do", className: { textColor: "bg-blue-500" }, count: 20 },
@@ -10,10 +15,29 @@ const DemoCartTitle = [
 ]
 
 function App() {
+  const { isOpen,attachment,setAttachment,setTotal } = useModal();
+   const [loading,setLoading]=useState(false);
+  useEffect(() => {
+    setLoading(true)
+    // Fetch data from an API
+    axios.get('https://task-cart-server.onrender.com/tasks')
+      .then(response => {
+        setAttachment(response.data);
+        setTotal(response.data.length)
+        setLoading(false)
+      })
+      .catch(error => {
+        setLoading(false)
+        console.error('Error fetching data:', error);
+      });
+  }, [setAttachment]);
 
+  if(loading){
+    return <Loading/>
+  }
 
   return (
-    <div className="w-full  overflow-hidden px-2">
+    <div className="w-full  overflow-hidden px-2 relative">
       <div className="flex gap-2 w-full h-screen overflow-x-scroll overflow-y-hidden">
 
         {
@@ -35,6 +59,9 @@ function App() {
           ))
         }
       </div>
+
+      {isOpen && <AttachmentModal/>}
+      {/* <AttachmentModal/> */}
     </div>
   )
 }
