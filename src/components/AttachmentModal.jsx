@@ -9,13 +9,13 @@ const AttachmentModal = () => {
   const handleFileUpload = async () => {
     setLoading(true)
     const formData = new FormData();
+    const arrayFiles = selectedFiles.map((file) => ({ name: file.name }));
+    console.log(arrayFiles,"selected file");
     for (const file of selectedFiles) {
       formData.append('attachments', file);
     }
     try {
-      const response = await axios.post('https://task-cart-server.onrender.com/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const response = await axios.post('https://task-cart-server.vercel.app/upload', arrayFiles);
       if (response.status == 200) {
         setLoading(false)
         setIsOpen(false)

@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     setLoading(true)
     // Fetch data from an API
-    axios.get('https://task-cart-server.onrender.com/tasks')
+    axios.get('https://task-cart-server.vercel.app/tasks')
       .then(response => {
         setAttachment(response.data);
         setTotal(response.data.length)
